@@ -10,7 +10,6 @@
 
 ``pip install customtkinter``
 ### generate .exe
-`python -m PyInstaller --onefile --noconsole guru_app.py
-`
+`python -m PyInstaller --onefile --noconsole index.py`
 * limpar lixo:  <br>
   <code>rm -rf build __pycache__ guru_app.spec<code>
