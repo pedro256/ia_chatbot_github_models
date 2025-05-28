@@ -36,57 +36,47 @@ class GuruApp(ctk.CTk):
         self.title("Chromer")
         self.geometry("900x500")
 
-        self.opacity = 1.0
+        self.opacity = 1
         self.ctrl_o_active = False
-
-
-        # self.grid_columnconfigure(0, weight=1)
-        # self.grid_rowconfigure(1, weight=1)
-
-        self.main_frame = ctk.CTkFrame(self)
-        self.main_frame.pack(padx=20, pady=20, fill="both", expand=True)
         
+        # self.main_frame = ctk.CTkFrame(self,height=10)
+        # self.main_frame.pack(padx=5, pady=5, fill="both", expand=True)
 
-        self.label = ctk.CTkLabel(self, text="TECH256", font=ctk.CTkFont(size=20, weight="bold"))
-        # self.label.grid(row=0, column=0, pady=10)
-        self.label.pack(padx=20, pady=20, fill="both", expand=True)
+
+        self.opacity_slider = ctk.CTkSlider(self, from_=0.2, to=1.0, number_of_steps=14, command=self.mudar_opacidade)
+        self.opacity_slider.set(0.5)
+        self.opacity_slider.pack(pady=10)        
+
+        # self.label = ctk.CTkLabel(self, text="TECH256", font=ctk.CTkFont(size=20, weight="bold"))
+        # self.label.pack(padx=20, pady=20, fill="both", expand=True)
 
         # Chat exibido
-        self.chatbox = ctk.CTkTextbox(self,height=100, wrap="word", font=("Consolas", 9))
+        self.chatbox = ctk.CTkTextbox(self,height=100, wrap="word", font=("Consolas", 11))
         # self.chatbox.grid(row=1, column=0, sticky="ew", padx=20)
         self.chatbox.pack(pady=(0, 10), fill="both", expand=True)
         self.chatbox.configure(state="disabled")
 
         # Área de texto editável para compor mensagem
-        self.input_textbox = ctk.CTkTextbox(self, height=100, font=("Consolas", 9))
+        self.input_textbox = ctk.CTkTextbox(self,  border_width=2, border_color="gray50",height=20,fg_color="transparent", font=("Consolas", 9))
         # self.input_textbox.grid(row=2, column=0, padx=20, pady=(0, 10), sticky="ew")
-        self.input_textbox.pack(pady=(0, 10), fill="both", expand=True)
+        self.input_textbox.pack(pady=(10, 2), fill="both", expand=True)
 
 
 
-        self.send_button = ctk.CTkButton(self, text="Enviar", command=self.send_message)
+        self.send_button = ctk.CTkButton(self, text="Enviar",fg_color="transparent", command=self.send_message)
         # self.send_button.grid(row=3, column=0, pady=(0, 20))
         self.send_button.pack()
 
-        self.opacity_slider = ctk.CTkSlider(self.main_frame, from_=0.2, to=1.0, number_of_steps=14, command=self.mudar_opacidade)
-        self.opacity_slider.set(1.0)
-        self.opacity_slider.pack(pady=10)
+        
 
-        self.pick_button = ctk.CTkButton(self, text="Extrair cor do fundo", command=self.start_color_pick)
+        self.pick_button = ctk.CTkButton(self, text="Extrair cor do fundo",fg_color="transparent", command=self.start_color_pick)
         self.pick_button.pack(pady=10)
-
-        # Bind de teclado
-        self.bind_all("<Control-o>", self.ctrl_o)
-        self.bind_all("<KeyRelease-o>", self.ctrl_o_release)
-        self.bind_all("<Key-plus>", self.aumentar_opacidade)
-        self.bind_all("<Key-minus>", self.diminuir_opacidade)
-
 
         self.messages = [
             {
                 "role": "system", 
-                "content": "Você é um professor guru em tecnologia. Responda de forma clara e objetiva. seja direto, sem muitas explicações"
-                }
+                "content": "Você é um professor de COBIT, Padrões de Projeto & Aplicações Cliente Servidor. Responda de forma clara e objetiva. seja direto, sem muitas explicações"
+            }
         ]
 
     def append_message(self, sender, message):
