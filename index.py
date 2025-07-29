@@ -33,7 +33,7 @@ class GuruApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("Chromer")
+        self.title("App")
         self.geometry("900x500")
 
         self.opacity = 1
@@ -63,19 +63,19 @@ class GuruApp(ctk.CTk):
 
 
 
-        self.send_button = ctk.CTkButton(self, text="Enviar",fg_color="transparent", command=self.send_message)
+        self.send_button = ctk.CTkButton(self, text="Send",fg_color="transparent", command=self.send_message)
         # self.send_button.grid(row=3, column=0, pady=(0, 20))
         self.send_button.pack()
 
         
 
-        self.pick_button = ctk.CTkButton(self, text="Extrair cor do fundo",fg_color="transparent", command=self.start_color_pick)
+        self.pick_button = ctk.CTkButton(self, text="Extract Background",fg_color="transparent", command=self.start_color_pick)
         self.pick_button.pack(pady=10)
 
         self.messages = [
             {
                 "role": "system", 
-                "content": "Você é um professor de COBIT, Padrões de Projeto & Aplicações Cliente Servidor. Responda de forma clara e objetiva. seja direto, sem muitas explicações"
+                "content": "you are a personal assistent"
             }
         ]
 
@@ -90,7 +90,7 @@ class GuruApp(ctk.CTk):
         if not user_input:
             return
 
-        self.append_message("Você", user_input)
+        self.append_message("You:  ", user_input)
         self.messages.append({"role": "user", "content": user_input})
         self.input_textbox.delete("1.0", "end")
 
@@ -106,9 +106,9 @@ class GuruApp(ctk.CTk):
             )
             reply = response.choices[0].message.content.strip()
             self.messages.append({"role": "assistant", "content": reply})
-            self.append_message("Professor Guru", reply)
+            self.append_message("Bot:  ", reply)
         except Exception as e:
-            self.append_message("Erro", f"Ocorreu um erro: {str(e)}")
+            self.append_message("Error", f"Ocorreu um erro: {str(e)}")
 
     def mudar_opacidade(self, valor):
         self.opacity = float(valor)
@@ -137,7 +137,7 @@ class GuruApp(ctk.CTk):
         self.withdraw()  # Esconde a janela para o usuário clicar atrás
         time.sleep(1)    # Dá tempo para o usuário escolher
         color = get_pixel_color_at_mouse()
-        print("Cor detectada:", color)
+        print("Color detected:", color)
         self.after(500, lambda: self.apply_color(color))
 
     def apply_color(self, hex_color):
